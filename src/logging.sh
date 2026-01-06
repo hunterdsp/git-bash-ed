@@ -149,9 +149,9 @@ log() {
 
 			esac
 			;;
-		
+
 		s)
-			IFS=' ' read -r -a TYPEANDCOLOR <<< "${OPTARG}"
+			IFS=' ' read -r -a TYPEANDCOLOR <<<"${OPTARG}"
 			LOGTYPE="${TYPEANDCOLOR[0]}"
 			LOGCOLOR="${TYPEANDCOLOR[1]}"
 			USERSPECIFIED=1
@@ -166,7 +166,7 @@ log() {
 	if ((COLORS)); then
 		if ((DEBUG)); then
 			color-echo -dbc "${LOGCOLOR}" "[$(iso-8601-basic "${RESOLUTION}")::${LOGTYPE}]::${*}"
-		elif ((USERSPECIFIED)) ; then
+		elif ((USERSPECIFIED)); then
 			color-echo -bc "${LOGCOLOR}" "[$(iso-8601-basic "${RESOLUTION}")::${LOGTYPE}]::${*}"
 		else
 			color-echo -bc "${LOGCOLOR}" "[$(iso-8601-basic "${RESOLUTION}")::${LOGTYPE}]::${*}"
