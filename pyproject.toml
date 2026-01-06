@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "git-bash-ed"
+version = "0.1.4"
+description = "Evolving set of auto-formatted, bats-tested, shellcheck-linted tools, templates, and more."
+authors = ["Matthew T Hunter <matthew.t.hunter@aero.org>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pre-commit = "*"
+poetry = "^2.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry_bumpversion.replacements]]
+files = [
+    "src/datetime.sh",
+    "src/environment.sh",
+    "src/file.sh",
+    "src/format.sh",
+    "src/function-template.sh",
+    "src/logging.sh",
+    "src/match.sh",
+    "src/network.sh",
+    "src/path.sh",
+    "src/script-template",
+]
+search='# PACKAGE: git-bash-ed version {current_version}                                         #'
+replace='# PACKAGE: git-bash-ed version {new_version}                                         #'

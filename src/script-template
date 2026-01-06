@@ -1,0 +1,113 @@
+#!/bin/bash
+# ############################################################################
+# EXECUTABLE: script-template                                                #
+# PACKAGE: git-bash-ed version 0.1.4                                         #
+# ############################################################################
+set -euo pipefail
+IFS=$'\n\t'
+##############################################################################
+# Use the above in all your scripts to make them more robust and reliable.   #
+# See http://redsymbol.net/articles/unofficial-bash-strict-mode/ for more.	 #
+##############################################################################
+# -e:           Immediately exit if any command has non-zero exit status.    #
+# -u:           Reference to variables not previously defined is an error.   #
+# -o pipefail:  Take pipeline exit status from first to fail.                #
+# IFS=$'\n\t':  Word splitting on newline and tab only (default $' \n\t').   #
+#----------------------------------------------------------------------------#
+# -x:           When debugging, traces execution and prints to stdout.       #
+##############################################################################
+
+# Use exit traps which ALWAYS run just before the script exits.
+finish() {
+	echo "Cleaning up!!!"
+}
+trap finish EXIT
+
+# Initialize all referenced variables
+PARAM=""
+OPTARG=""
+
+# Be sure to initialize OPTIND, otherwise getopts wont work correctly when
+# users attempt to source your script multiple times.
+OPTIND=0
+
+# Using 'heredoc' for help can make formatting simpler. Appending '-' to
+# '<<' strips leading tabs (and only tabs - no spaces) from each line; leaving
+# it off  leaves indentation as is. The || true is needed with set -e because
+# as expected read exits with nonzero exit code. cat would be an alternative.
+read -r -d '' HELP <<-'EOF' || true
+	Usage: script-template [OPTIONS] [-p PARAM] [ARGS] ...
+
+	  Script Title and Short Summary.
+
+	Options:
+	  -h         Show this message and exit.
+	  -p PARAM   Option that accepts an argument stored in $OPTARG.
+	  -v         Show the version and exit.
+
+	Arguments:
+	  MYCMD      Some command or other stored in $1
+	  MYVAR      Some variable or other stored in $2
+EOF
+
+# Specify options. Add ':' to start and after options that take arguments.
+while getopts ":hp:v" option; do
+
+	# Parse options.
+	case $option in
+
+	# h for help.
+	h)
+		echo "${HELP}"
+		exit 0
+		;;
+
+	# Unrecognized options set $option to '?'.
+	\?)
+		echo "Invalid option: -${OPTARG}"
+		echo "${HELP}"
+		exit 0
+		;;
+
+	# Option taking a parameter stored for later processing.
+	p)
+		PARAM="${OPTARG}"
+		;;
+
+	# Option processed immediately
+	v)
+		echo "X.Y.Z"
+		exit 0
+		;;
+
+	esac
+
+done
+
+# Remove options from the input list $@ so the first remaining argument is $1.
+shift "$((OPTIND - 1))"
+
+# ${VAR:-DEFAULT} means VAR=DEFAULT if VAR is undefined.
+# This one defaults to an empty string.
+ARG1=${1:-}
+
+# Process option -p where PARAM could be a command, filename, etc...
+if [ -n "${PARAM}" ]; then
+	echo "Option -p specified with argument: ${PARAM}"
+	# Do something with PARAM ...
+	exit 0
+fi
+
+# Process arguments individually.
+# Here we use a function to execute a command.
+somecmd() { echo "Executing somecmd()"; }
+if [ "${ARG1}" == 'SOMECMD' ]; then
+	somecmd
+	exit 0
+fi
+
+# Process all arguments in a loop
+for arg in "${@}"; do
+	echo "Processing argument: ${arg} from \$@ in a loop"
+	# Do something with the argument
+done

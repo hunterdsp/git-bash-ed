@@ -1,0 +1,24 @@
+repos:
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  # Ruff version.
+  rev: v0.9.1
+  hooks:
+    # Run the linter.
+    - id: ruff
+      args: [ --fix , --unsafe-fixes]
+    # Run the formatter.
+    - id: ruff-format
+-   repo: https://github.com/python-poetry/poetry
+    rev: 2.0.1  # add version here
+    hooks:
+      - id: poetry-check
+      - id: poetry-lock
+-   repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+    -   id: shellcheck
+- repo: https://github.com/scop/pre-commit-shfmt
+  rev: v3.10.0-2
+  hooks:
+    # Choose one of:
+    - id: shfmt-src     # build from source (requires/installs Go to build)
