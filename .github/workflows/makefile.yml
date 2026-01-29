@@ -10,8 +10,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    using: "docker"
-      image: "docker://kcov/kcov:latest"
+    container:
+      image: kcov/kcov:latest
     
     steps:
     - uses: luizm/action-sh-checker@master
