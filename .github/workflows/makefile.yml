@@ -1,0 +1,24 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    container:
+      image: kcov/kcov:latest
+    
+    steps:
+    
+    - uses: luizm/action-sh-checker@master
+    - uses: actions/checkout@v4
+    - name: Install make
+      run: apt-get update && apt-get install -y make git
+    - name: Build & Test
+      run: make all
+    
