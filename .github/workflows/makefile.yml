@@ -28,3 +28,9 @@ jobs:
     - name: Build & Test
       run: make all
     
+    - name: Create test summary
+      uses: test-summary/action@dist
+      with:
+        paths: test-results/**/*.xml
+      if: always()
+    
