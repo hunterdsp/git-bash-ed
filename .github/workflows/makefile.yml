@@ -1,0 +1,24 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    using: "docker"
+      image: "docker://kcov/kcov:latest"
+    
+    steps:
+    - uses: luizm/action-sh-checker@master
+    - uses: actions/checkout@v4
+
+    - name: configure
+      run: ./configure
+
+    - name: Build & Test
+      run: make all
