@@ -11,9 +11,8 @@ lint : test
 	shellcheck -f checkstyle src/*.sh | \
 		xmlstarlet tr $(TOJUNIT) > $(REPORT_PATH)/shellcheck.xml
 
-$(REPORT_PATH) $(TESTHELPER_PATH):
+$(REPORT_PATH)
 	mkdir -p $(REPORT_PATH)
-	git submodule update
 
 # Use kcov to run bats and compute coverage
 .PHONY: test
