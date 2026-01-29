@@ -58,12 +58,12 @@ _common_setup
 
 @test 'unset-bashrc entry' {
 	run unset-bashrc 'MY_NEW_LINE'
-	run bash -c "awk '/^MY_NEW_LINE$/' ~/.bashrc | grep ."
+	run bash -i -c "awk '/^MY_NEW_LINE$/' ~/.bashrc | grep ."
 	assert_failure
 }
 
 @test 'unset-bashrc key-value' {
 	run unset-bashrc 'MY_KEY' 'MY_VALUE'
-	run bash -c "awk '/^export MY_KEY=MY_VALUE$/' ~/.bashrc | grep ."
+	run bash -i -c "awk '/^export MY_KEY=MY_VALUE$/' ~/.bashrc | grep ."
 	assert_failure
 }
