@@ -21,7 +21,7 @@ jobs:
     - uses: luizm/action-sh-checker@master
     - name: Install make
       run: |
-        apt update && apt upgrade 
+        apt update && apt upgrade -y
         apt install -y make git shellcheck xmlstarlet build-essential
     - uses: actions/checkout@v4
       with: 
