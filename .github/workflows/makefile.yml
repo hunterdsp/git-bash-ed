@@ -16,11 +16,12 @@ jobs:
     steps:
     
     - uses: luizm/action-sh-checker@master
+    - name: Install make
+      run: apt-get update && apt-get install -y make git
     - uses: actions/checkout@v4
       with: 
         submodules: recursive
-    - name: Install make
-      run: apt-get update && apt-get install -y make git
+
     - name: Build & Test
       run: make all
     
