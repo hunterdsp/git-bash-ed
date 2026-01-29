@@ -1,4 +1,6 @@
 all : lint test
+
+MAKEHOME := $(CURDIR)
 ARTIFACT = git-bash-ed.tar.gz
 TESTHELPER_PATH = test/test_helper
 REPORT_PATH = test-results
@@ -28,5 +30,8 @@ test : $(REPORT_PATH)
 	tar -cvzf $(ARTIFACT) src $(REPORT_PATH)
 	rm -f $(TESTHELPER_PATH)/bats-*/*.json
 
+# Remove test & build artifacts and restore helpers
 clean : 
 	rm -rf $(ARTIFACT) $(REPORT_PATH) $(SONARQUBE_PATH)
+	git -C $(TESTHELPER_PATH)/bats-assert restore .
+	git -C $(TESTHELPER_PATH)/bats-support restore .
