@@ -20,8 +20,9 @@ jobs:
     
     - uses: luizm/action-sh-checker@master
     - name: Install make
-      run: apt update && apt install -y make git shellcheck xmlstarlet \
-        build-essential
+      run: |
+        apt update && apt upgrade 
+        apt install -y make git shellcheck xmlstarlet build-essential
     - uses: actions/checkout@v4
       with: 
         submodules: recursive
