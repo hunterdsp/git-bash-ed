@@ -20,7 +20,7 @@ jobs:
     
     - uses: luizm/action-sh-checker@master
     - name: Install make
-      run: apt-get update && apt-get install -y make git
+      run: apt-get update && apt-get install -y make git shellcheck xmlstarlet
     - uses: actions/checkout@v4
       with: 
         submodules: recursive
