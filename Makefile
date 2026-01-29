@@ -23,9 +23,10 @@ test : $(REPORT_PATH)
 		$(REPORT_PATH)/coverage \
 		/bin/bats test
 	mkdir -p $(SONARQUBE_PATH)
-	cp $(REPORT_PATH)/coverage/bats.*/sonarqube.xml $(SONARQUBE_PATH)/sonarqube-report.xml
+	cp $(REPORT_PATH)/coverage/bats.*/sonarqube.xml \
+		$(SONARQUBE_PATH)/sonarqube-report.xml
 	tar -cvzf $(ARTIFACT) src $(REPORT_PATH)
 	rm -f $(TESTHELPER_PATH)/bats-*/*.json
 
 clean : 
-	rm -rf $(ARTIFACT) $(TESTHELPER_PATH) $(REPORT_PATH) $(SONARQUBE_PATH)
+	rm -rf $(ARTIFACT) $(REPORT_PATH) $(SONARQUBE_PATH)
