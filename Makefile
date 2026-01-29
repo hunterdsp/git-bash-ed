@@ -22,7 +22,7 @@ test : $(REPORT_PATH)
 		--include-pattern=/src \
 		--exclude-pattern=/test \
 		$(REPORT_PATH)/coverage \
-		./test/bats//bin/bats test
+		./test/bats/bin/bats test
 	mkdir -p $(SONARQUBE_PATH)
 	cp $(REPORT_PATH)/coverage/bats.*/sonarqube.xml \
 		$(SONARQUBE_PATH)/sonarqube-report.xml
