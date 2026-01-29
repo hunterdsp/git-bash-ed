@@ -17,6 +17,8 @@ jobs:
     
     - uses: luizm/action-sh-checker@master
     - uses: actions/checkout@v4
+      with: 
+        submodules: recursive
     - name: Install make
       run: apt-get update && apt-get install -y make git
     - name: Build & Test
